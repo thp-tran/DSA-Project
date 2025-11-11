@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void (*func_ptr[16])() = {
+void (*func_ptr[17])() = {
     dlistDemo1,
     dlistDemo2,
     dlistDemo3,
@@ -24,7 +24,8 @@ void (*func_ptr[16])() = {
     tc_inventory1002,
     tc_inventory1003,
     tc_inventory1004,
-    tc_inventory1006
+    tc_inventory1006,
+    tc_inventory1007
 };
 
 void run(int func_idx)
@@ -34,18 +35,20 @@ void run(int func_idx)
 
 int main(int argc, char **argv)
 {
-    // cout << "Assignment-1" << endl;
-    // if (argc == 1) {
-    //     tc_inventory1006();
-    // }
-    cout << "Hello from main\n";
-    IList<int> *list1 = new XArrayList<int>(NULL, NULL, 10);
-    cout << "New list\n";
-    list1->add(19);
-    cout << "Add 19\n";
-    list1->add(20);
-    cout << "Add 20\n";
-    string s = list1->toString(NULL);
-    cout << s << endl;
+    cout << "Assignment-1" << endl;
+
+    if (argc == 1) {
+        cout << "No test index provided → running default test (tc_inventory1006)" << endl;
+        tc_inventory1006();
+    } else {
+        int idx = stoi(argv[1]);
+        if (idx >= 0 && idx < 17) {
+            cout << "Running test index: " << idx << endl;
+            run(idx);
+        } else {
+            cerr << "Invalid test index! Valid range: 0–15." << endl;
+        }
+    }
+
     return 0;
 }

@@ -167,3 +167,68 @@ void tc_inventory1006(){
     cout << "\nAfter removing duplicates:" << endl;
     cout << inventory.toString() << endl;
 }
+
+void tc_inventory1007() {
+    cout << "\n===== TEST CASE: tc_inventory1007 =====" << endl;
+
+    // --- Tạo dữ liệu ban đầu ---
+    InventoryAttribute attrA1("weight", 10);
+    InventoryAttribute attrA2("height", 156);
+    InventoryAttribute arrA[] = { attrA1, attrA2 };
+    List1D<InventoryAttribute> listAttrA(arrA, 2);
+
+    InventoryAttribute attrB1("weight", 20);
+    InventoryAttribute attrB2("depth", 24);
+    InventoryAttribute attrB3("height", 100);
+    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
+    List1D<InventoryAttribute> listAttrB(arrB, 3);
+
+    InventoryAttribute attrC1("color", 2);
+    InventoryAttribute attrC2("height", 75);
+    InventoryAttribute arrC[] = { attrC1, attrC2 };
+    List1D<InventoryAttribute> listAttrC(arrC, 2);
+
+    // Gom các list vào matrix 2D
+    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
+    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
+
+    // Tên và số lượng sản phẩm
+    string namesArray[] = { "Product A", "Product B", "Product C" };
+    List1D<string> productNames(namesArray, 3);
+
+    int quantitiesArray[] = { 50, 30, 20 };
+    List1D<int> quantities(quantitiesArray, 3);
+
+    // --- Tạo InventoryManager ---
+    InventoryManager inventory(attributesMatrix, productNames, quantities);
+
+    // --- In thông tin kho ban đầu ---
+    cout << "\n=== INVENTORY BEFORE QUERY ===" << endl;
+    cout << inventory.toString() << endl;
+
+    // --- Thiết lập truy vấn ---
+    string targetAttr = "height";
+    int minVal = 50;
+    int maxVal = 150;
+    int minQuantity = 40;
+    bool includeLowerBound = false;
+
+    cout << "\n=== QUERY CONDITION ===" << endl;
+    cout << "Attribute: " << targetAttr << endl;
+    cout << "Range: [" << minVal << ", " << maxVal << "]" << endl;
+    cout << "Min Quantity: " << minQuantity << endl;
+    cout << "Include Lower Bound: " << (includeLowerBound ? "true" : "false") << endl;
+
+    // --- Thực hiện truy vấn ---
+    List1D<string> queryResult = inventory.query(targetAttr, minVal, maxVal, minQuantity, includeLowerBound);
+
+    // --- In kết quả ---
+    cout << "\n=== QUERY RESULT ===" << endl;
+    if (queryResult.size() == 0) {
+        cout << "⚠️  No products matched the query." << endl;
+    } else {
+        cout << queryResult << endl;
+
+    cout << "\n===== END TEST CASE =====" << endl;
+    }
+}
