@@ -1,106 +1,165 @@
-
 #include <iostream>
 #include <iomanip>
 #include "list/DLinkedList.h"
 #include "util/Point.h"
 using namespace std;
 
-void dlistDemo1(){
+// ================================================================
+// TEST 1: Test DLinkedList<int> add(), iterator, println()
+// ================================================================
+void testIntListBasic(){
+    cout << "\n==================== TEST 1: Basic operations with List<int> ====================\n";
+
     List<int> dlist;
-    for(int i = 0; i< 20 ; i++)
+    cout << "Adding 20 integer items (value = index^2)...\n";
+    for(int i = 0; i < 20; i++)
         dlist.add(i, i*i);
+
+    cout << "\nList printed using println():\n";
     dlist.println();
-    
-    for(List<int>::Iterator it=dlist.begin(); it != dlist.end(); it++ )
+
+    cout << "\nList printed using iterator manually:\n";
+    for(List<int>::Iterator it = dlist.begin(); it != dlist.end(); it++)
         cout << *it << " ";
-    cout << endl;
-}
-void dlistDemo2(){
-    DLinkedList<Point*> list1(&DLinkedList<Point*>::free, &Point::pointEQ);
-    list1.add(new Point(23.2f, 25.4f));
-    list1.add(new Point(24.6f, 23.1f));  
-    list1.add(new Point(12.5f, 22.3f)); 
-    
-    for(DLinkedList<Point*>::Iterator it = list1.begin(); it != list1.end(); it++)
-        cout << **it << endl;
-    
-    Point* p1 = new Point(24.6f, 23.1f); //found in list
-    Point* p2 = new Point(124.6f, 23.1f); //not found
-    cout << *p1 << "=> " << (list1.contains(p1)? "found; " : "not found; ")
-                << " indexOf returns: " << list1.indexOf(p1) << endl;
-    cout << *p2 << "=> " << (list1.contains(p2)? "found; " : "not found; ")
-                << " indexOf returns: " << list1.indexOf(p2) << endl;
-    
-    ///Different results if not pass &Point::equals
-    cout << endl << endl;
-    DLinkedList<Point*> list2(&DLinkedList<Point*>::free);
-    list2.add(new Point(23.2f, 25.4f));
-    list2.add(new Point(24.6f, 23.1f));  
-    list2.add(new Point(12.5f, 22.3f)); 
-    
-    for(DLinkedList<Point*>::Iterator it = list2.begin(); it != list2.end(); it++)
-        cout << **it << endl;
-    
-    cout << *p1 << "=> " << (list2.contains(p1)? "found; " : "not found; ")
-                << " indexOf returns: " << list2.indexOf(p1) << endl;
-    cout << *p2 << "=> " << (list2.contains(p2)? "found; " : "not found; ")
-                << " indexOf returns: " << list2.indexOf(p2) << endl;
-    
-    delete p1; delete p2;
+    cout << "\n";
 }
 
-void dlistDemo3(){
+
+// ================================================================
+// TEST 2: DLinkedList<Point*> with equals (Point::pointEQ)
+// ================================================================
+void testPointPtrWithEquals(){
+    cout << "\n==================== TEST 2: DLinkedList<Point*> WITH custom equals ====================\n";
+
+    DLinkedList<Point*> list1(&DLinkedList<Point*>::free, &Point::pointEQ);
+
+    cout << "Adding Points to list...\n";
+    list1.add(new Point(23.2f, 25.4f));
+    list1.add(new Point(24.6f, 23.1f));
+    list1.add(new Point(12.5f, 22.3f));
+
+    cout << "\nList1 contents:\n";
+    for(auto it = list1.begin(); it != list1.end(); it++)
+        cout << "  - " << **it << endl;
+
+    cout << "\nSearching for test Points...\n";
+
+    Point* p1 = new Point(24.6f, 23.1f);   // found in list
+    Point* p2 = new Point(124.6f, 23.1f);  // not found
+
+    cout << "Check p1 = " << *p1 << endl;
+    cout << "  contains?  " << (list1.contains(p1) ? "YES" : "NO") << endl;
+    cout << "  indexOf =  " << list1.indexOf(p1) << endl;
+
+    cout << "\nCheck p2 = " << *p2 << endl;
+    cout << "  contains?  " << (list1.contains(p2) ? "YES" : "NO") << endl;
+    cout << "  indexOf =  " << list1.indexOf(p2) << endl;
+
+    delete p1;
+    delete p2;
+}
+
+
+// ================================================================
+// TEST 3: DLinkedList<Point*> without equals → pointer comparison
+// ================================================================
+void testPointPtrWithoutEquals(){
+    cout << "\n==================== TEST 3: DLinkedList WITHOUT custom equals ====================\n";
+    cout << "Note: Comparison is BY POINTER, not by value!\n";
+    cout << "=> Even if x,y are equal, contains() will return FALSE.\n\n";
+
+    DLinkedList<Point*> list2(&DLinkedList<Point*>::free);
+
+    cout << "Adding Points to list...\n";
+    list2.add(new Point(23.2f, 25.4f));
+    list2.add(new Point(24.6f, 23.1f));
+    list2.add(new Point(12.5f, 22.3f));
+
+    cout << "\nList2 contents:\n";
+    for(auto it = list2.begin(); it != list2.end(); it++)
+        cout << "  - " << **it << endl;
+
+    Point* p1 = new Point(24.6f, 23.1f);
+
+    cout << "\nSearching p1 = " << *p1 << "\n";
+    cout << "  contains? " << (list2.contains(p1) ? "YES" : "NO") << endl;
+    cout << "  indexOf  = " << list2.indexOf(p1) << endl;
+
+    delete p1;
+}
+
+
+// ================================================================
+// TEST 4: DLinkedList<Point> (not pointer) + test indexOf
+// ================================================================
+void testPointValueIndexOf(){
+    cout << "\n==================== TEST 4: DLinkedList<Point> VALUE TYPE ====================\n";
+
     DLinkedList<Point> dList;
+
+    cout << "Adding Point values...\n";
     dList.add(Point(1.5, 3.5));
     dList.add(Point(2.5, 4.5));
     dList.add(Point(1.6, 3.1));
-    
-    cout << "test for indexOf: " << endl;
+
+    cout << "\nTesting indexOf(Point)...\n";
     Point p(1.6, 3.1);
-    cout << p << " at: " << dList.indexOf(p);
+    cout << "Searching for: " << p << endl;
+    cout << "Found at index: " << dList.indexOf(p) << endl;
 }
+
+
+// ================================================================
+// TEST 5: DLinkedList<Point*> with custom comparator + stringifier
+// ================================================================
 bool pointComparator(Point*& p1, Point*& p2){
     return (p1->getX() == p2->getX()) && (p1->getY() == p2->getY());
 }
 string LpointPtr2Str(Point*& ptr){
     stringstream os;
-    os << "("   << ptr->getX() << ", " 
-                << ptr->getY()
-       << ")";
+    os << "(" << ptr->getX() << ", " << ptr->getY() << ")";
     return os.str();
 }
-void dlistDemo4(){
+
+void testPointPtrCustomComparator(){
+    cout << "\n==================== TEST 5: Using custom comparator + custom toString ====================\n";
+
     DLinkedList<Point*> dList(&DLinkedList<Point*>::free, &pointComparator);
+
+    cout << "Adding Point objects...\n";
     dList.add(new Point(1.5, 3.5));
     dList.add(new Point(2.5, 4.5));
     dList.add(new Point(1.6, 3.1));
+
+    cout << "\nList printed using custom stringifier:\n";
     dList.println(&LpointPtr2Str);
-    
-    cout << "test for indexOf: " << endl;
+
+    cout << "\nTesting indexOf with custom comparator...\n";
     Point* p = new Point(1.6, 3.1);
-    cout << *p << " at: " << dList.indexOf(p) << endl;
+    cout << *p << " found at index: " << dList.indexOf(p) << endl;
+
     delete p;
 }
-void dlistDemo5(){
-    DLinkedList<float> dList;
-    dList.add(3.2);
-    dList.add(5.5);
-    dList.println();
-    cout << "index of 5.5: " << dList.indexOf(5.5) << endl;
-    cout << "index of 15.5: " << dList.indexOf(15.5) << endl;
-}
 
-void dlistDemo6(){
+
+// ================================================================
+// TEST 6: Test reference returned by get() and modifying list item
+// ================================================================
+void testGetAndModify(){
+    cout << "\n==================== TEST 6: get(index) returns REFERENCE ====================\n";
+
     List<int> list;
-    for(int i = 0; i< 10 ; i++)
+    cout << "Adding 10 items to list...\n";
+    for(int i = 0; i < 10; i++)
         list.add(i, i*i);
-    
+
     cout << setw(25) << left << "Original list: ";
     list.println();
-    
-    //
+
+    cout << "Modifying list[5] through reference...\n";
     int& item = list.get(5);
     item = 999;
-    cout << setw(25) << left << "After changing an item: ";
+
+    cout << setw(25) << left << "After modification: ";
     list.println();
 }

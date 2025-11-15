@@ -3,232 +3,201 @@
 
 using namespace std;
 
-void tc_inventory1001() {
+//New tc
+void testInventory_List1DInt() {
+    cout << "\n==================== INVENTORY TEST: List1D<int> Basic ====================\n";
+
+    cout << "[STEP] Creating simple 1D array: {1, 2, 3, 4, 5}\n";
     int arr[] = {1, 2, 3, 4, 5};
+
+    cout << "[STEP] Building List1D<int> from array...\n";
     List1D<int> list1D(arr, 5);
-    
+
+    cout << "[RESULT] List1D content:\n";
     cout << list1D.toString() << endl;
 }
 
-void tc_inventory1002() {
+void testInventory_List2DInt() {
+    cout << "\n==================== INVENTORY TEST: List2D<int> Matrix ====================\n";
+
+    cout << "[STEP] Creating 3 rows: {1,2,3}, {4,5,6}, {7,8,9}\n";
+
     int row0[] = {1, 2, 3};
     int row1[] = {4, 5, 6};
     int row2[] = {7, 8, 9};
-    
-    List1D<int> arr2D[] = { List1D<int>(row0, 3), List1D<int>(row1, 3), List1D<int>(row2, 3) };
-    
+
+    List1D<int> arr2D[] = {
+        List1D<int>(row0, 3),
+        List1D<int>(row1, 3),
+        List1D<int>(row2, 3)
+    };
+
+    cout << "[STEP] Building List2D<int> matrix...\n";
     List2D<int> matrix(arr2D, 3);
-    
+
+    cout << "[RESULT] Matrix content:\n";
     cout << matrix.toString() << endl;
 }
 
-void tc_inventory1003() {
-    InventoryAttribute attrA1("weight", 10);
-    InventoryAttribute attrA2("height", 156);
-    InventoryAttribute arrA[] = { attrA1, attrA2 };
-    int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
-    List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
+void testInventory_BuildInventory() {
+    cout << "\n==================== INVENTORY TEST: Build Inventory ====================\n";
 
-    InventoryAttribute attrB1("weight", 20);
-    InventoryAttribute attrB2("depth", 24);
-    InventoryAttribute attrB3("height", 100);
-    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
-    int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
-    List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
+    cout << "[STEP] Creating attribute lists for 3 products...\n";
 
-    InventoryAttribute attrC1("color", 2);
-    InventoryAttribute arrC[] = { attrC1 };
-    int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
-    List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
+    InventoryAttribute arrA[] = { {"weight",10}, {"height",156} };
+    InventoryAttribute arrB[] = { {"weight",20}, {"depth",24}, {"height",100} };
+    InventoryAttribute arrC[] = { {"color",2} };
 
-    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
-    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
-
-    string namesArray[] = { "Product A", "Product B", "Product C" };
-    List1D<string> productNames(namesArray, 3);
-    
-    int quantitiesArray[] = { 50, 30, 20 };
-    List1D<int> quantities(quantitiesArray, 3);
-
-    InventoryManager inventory(attributesMatrix, productNames, quantities);
-    
-    cout << inventory.toString() << endl;
-}
-
-void tc_inventory1004(){
-    InventoryAttribute attrA1("weight", 10);
-    InventoryAttribute attrA2("height", 156);
-    InventoryAttribute arrA[] = { attrA1, attrA2 };
-    int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
-    List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
-
-    InventoryAttribute attrB1("weight", 20);
-    InventoryAttribute attrB2("depth", 24);
-    InventoryAttribute attrB3("height", 100);
-    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
-    int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
-    List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
-
-    InventoryAttribute attrC1("color", 2);
-    InventoryAttribute arrC[] = { attrC1 };
-    int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
-    List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
-
-    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
-    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
-
-    string namesArray[] = { "Product A", "Product B", "Product C" };
-    List1D<string> productNames(namesArray, 3);
-    
-    int quantitiesArray[] = { 50, 30, 20 };
-    List1D<int> quantities(quantitiesArray, 3);
-
-    InventoryManager inventory(attributesMatrix, productNames, quantities);
-    
-    InventoryAttribute attrD1("weight", 15);
-    InventoryAttribute attrD2("height", 140);
-    InventoryAttribute arrD[] = { attrD1, attrD2 };
-    int numAttrD = sizeof(arrD) / sizeof(arrD[0]);
-    List1D<InventoryAttribute> listAttrD(arrD, numAttrD);
-    inventory.addProduct(listAttrD, "Product D", 40);
-    cout << "\nAfter adding Product D:" << endl;
-    cout << inventory.toString() << endl;
-}
-
-void tc_inventory1005(){
-    InventoryAttribute attrA1("weight", 10);
-    InventoryAttribute attrA2("height", 156);
-    InventoryAttribute arrA[] = { attrA1, attrA2 };
-    int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
-    List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
-
-    InventoryAttribute attrB1("weight", 20);
-    InventoryAttribute attrB2("depth", 24);
-    InventoryAttribute attrB3("height", 100);
-    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
-    int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
-    List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
-
-    InventoryAttribute attrC1("color", 2);
-    InventoryAttribute arrC[] = { attrC1 };
-    int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
-    List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
-
-    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
-    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
-
-    string namesArray[] = { "Product A", "Product B", "Product C" };
-    List1D<string> productNames(namesArray, 3);
-    
-    int quantitiesArray[] = { 50, 30, 20 };
-    List1D<int> quantities(quantitiesArray, 3);
-
-    InventoryManager inventory(attributesMatrix, productNames, quantities);
-
-    List1D<string> queryResult = inventory.query("weight", 10, 20, 30, true);
-    cout << "\nQuery result (weight between 10 and 20, quantity >= 30):" << endl;
-    cout << queryResult << endl;
-}
-
-void tc_inventory1006(){
-    InventoryAttribute attrA1("weight", 10);
-    InventoryAttribute attrA2("height", 156);
-    InventoryAttribute arrA[] = { attrA1, attrA2 };
-    int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
-    List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
-
-    InventoryAttribute attrB1("weight", 20);
-    InventoryAttribute attrB2("depth", 24);
-    InventoryAttribute attrB3("height", 100);
-    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
-    int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
-    List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
-
-    InventoryAttribute attrC1("color", 2);
-    InventoryAttribute arrC[] = { attrC1 };
-    int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
-    List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
-
-    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
-    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
-
-    string namesArray[] = { "Product A", "Product B", "Product C" };
-    List1D<string> productNames(namesArray, 3);
-    
-    int quantitiesArray[] = { 50, 30, 20 };
-    List1D<int> quantities(quantitiesArray, 3);
-
-    InventoryManager inventory(attributesMatrix, productNames, quantities);
-
-    inventory.addProduct(listAttrA, "Product A", 20);
-    cout << "\nAfter adding duplicate of Product A:" << endl;
-    cout << inventory.toString() << endl;
-    inventory.removeDuplicates();
-    cout << "\nAfter removing duplicates:" << endl;
-    cout << inventory.toString() << endl;
-}
-
-void tc_inventory1007() {
-    cout << "\n===== TEST CASE: tc_inventory1007 =====" << endl;
-
-    // --- Tạo dữ liệu ban đầu ---
-    InventoryAttribute attrA1("weight", 10);
-    InventoryAttribute attrA2("height", 156);
-    InventoryAttribute arrA[] = { attrA1, attrA2 };
     List1D<InventoryAttribute> listAttrA(arrA, 2);
-
-    InventoryAttribute attrB1("weight", 20);
-    InventoryAttribute attrB2("depth", 24);
-    InventoryAttribute attrB3("height", 100);
-    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
     List1D<InventoryAttribute> listAttrB(arrB, 3);
+    List1D<InventoryAttribute> listAttrC(arrC, 1);
 
-    InventoryAttribute attrC1("color", 2);
-    InventoryAttribute attrC2("height", 75);
-    InventoryAttribute arrC[] = { attrC1, attrC2 };
-    List1D<InventoryAttribute> listAttrC(arrC, 2);
+    cout << "[STEP] Creating attributes matrix (3 rows)...\n";
+    List1D<InventoryAttribute> attrs[] = { listAttrA, listAttrB, listAttrC };
+    List2D<InventoryAttribute> matrix(attrs, 3);
 
-    // Gom các list vào matrix 2D
-    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
-    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
+    cout << "[STEP] Creating product names + quantities...\n";
+    string names[] = { "Product A", "Product B", "Product C" };
+    int qty[] = { 50, 30, 20 };
 
-    // Tên và số lượng sản phẩm
-    string namesArray[] = { "Product A", "Product B", "Product C" };
-    List1D<string> productNames(namesArray, 3);
+    InventoryManager inventory(matrix, List1D<string>(names,3), List1D<int>(qty,3));
 
-    int quantitiesArray[] = { 50, 30, 20 };
-    List1D<int> quantities(quantitiesArray, 3);
-
-    // --- Tạo InventoryManager ---
-    InventoryManager inventory(attributesMatrix, productNames, quantities);
-
-    // --- In thông tin kho ban đầu ---
-    cout << "\n=== INVENTORY BEFORE QUERY ===" << endl;
+    cout << "[RESULT] Inventory created successfully:\n";
     cout << inventory.toString() << endl;
+}
 
-    // --- Thiết lập truy vấn ---
-    string targetAttr = "height";
-    int minVal = 50;
-    int maxVal = 150;
-    int minQuantity = 40;
-    bool includeLowerBound = false;
+void testInventory_AddProduct() {
+    cout << "\n==================== INVENTORY TEST: Add Product ====================\n";
 
-    cout << "\n=== QUERY CONDITION ===" << endl;
-    cout << "Attribute: " << targetAttr << endl;
-    cout << "Range: [" << minVal << ", " << maxVal << "]" << endl;
-    cout << "Min Quantity: " << minQuantity << endl;
-    cout << "Include Lower Bound: " << (includeLowerBound ? "true" : "false") << endl;
+    cout << "[STEP] Building initial inventory with 3 products...\n";
 
-    // --- Thực hiện truy vấn ---
-    List1D<string> queryResult = inventory.query(targetAttr, minVal, maxVal, minQuantity, includeLowerBound);
+    InventoryAttribute arrA[] = { {"weight",10}, {"height",156} };
+    InventoryAttribute arrB[] = { {"weight",20}, {"depth",24}, {"height",100} };
+    InventoryAttribute arrC[] = { {"color",2} };
 
-    // --- In kết quả ---
-    cout << "\n=== QUERY RESULT ===" << endl;
-    if (queryResult.size() == 0) {
-        cout << "⚠️  No products matched the query." << endl;
-    } else {
-        cout << queryResult << endl;
+    List1D<InventoryAttribute> listA(arrA, 2);
+    List1D<InventoryAttribute> listB(arrB, 3);
+    List1D<InventoryAttribute> listC(arrC, 1);
 
-    cout << "\n===== END TEST CASE =====" << endl;
-    }
+    List1D<InventoryAttribute> rows[] = { listA, listB, listC };
+    List2D<InventoryAttribute> matrix(rows, 3);
+
+    string names[] = { "Product A", "Product B", "Product C" };
+    int qty[] = { 50, 30, 20 };
+
+    InventoryManager inventory(matrix, List1D<string>(names,3), List1D<int>(qty,3));
+
+    cout << "[INFO] Initial inventory:\n" << inventory.toString() << endl;
+
+    cout << "[STEP] Creating new product: Product D\n";
+    InventoryAttribute arrD[] = { {"weight",15}, {"height",140} };
+    List1D<InventoryAttribute> listD(arrD, 2);
+
+    cout << "[STEP] Adding Product D with qty = 40...\n";
+    inventory.addProduct(listD, "Product D", 40);
+
+    cout << "[RESULT] Updated inventory:\n";
+    cout << inventory.toString() << endl;
+}
+
+void testInventory_QuerySimple() {
+    cout << "\n==================== INVENTORY TEST: Query Simple ====================\n";
+
+    cout << "[STEP] Preparing inventory...\n";
+
+    InventoryAttribute arrA[] = { {"weight",10}, {"height",156} };
+    InventoryAttribute arrB[] = { {"weight",20}, {"depth",24}, {"height",100} };
+    InventoryAttribute arrC[] = { {"color",2} };
+
+    List1D<InventoryAttribute> rows[] = {
+        List1D<InventoryAttribute>(arrA, 2),
+        List1D<InventoryAttribute>(arrB, 3),
+        List1D<InventoryAttribute>(arrC, 1)
+    };
+
+    List2D<InventoryAttribute> matrix(rows, 3);
+
+    string names[] = { "Product A", "Product B", "Product C" };
+    int qty[] = { 50, 30, 20 };
+
+    InventoryManager inventory(matrix, List1D<string>(names,3), List1D<int>(qty,3));
+
+    cout << "[INFO] Inventory loaded:\n" << inventory.toString() << endl;
+
+    cout << "[STEP] Running query: weight between 10 and 20, qty >= 30\n";
+    List1D<string> result = inventory.query("weight", 10, 20, 30, true);
+
+    cout << "[RESULT] Query output:\n";
+    cout << result << endl;
+}
+
+void testInventory_RemoveDuplicates() {
+    cout << "\n==================== INVENTORY TEST: Remove Duplicates ====================\n";
+
+    cout << "[STEP] Building inventory...\n";
+
+    InventoryAttribute arrA[] = { {"weight",10}, {"height",156} };
+    InventoryAttribute arrB[] = { {"weight",20}, {"depth",24}, {"height",100} };
+    InventoryAttribute arrC[] = { {"color",2} };
+
+    List1D<InventoryAttribute> rows[] = {
+        List1D<InventoryAttribute>(arrA,2),
+        List1D<InventoryAttribute>(arrB,3),
+        List1D<InventoryAttribute>(arrC,1)
+    };
+
+    List2D<InventoryAttribute> matrix(rows, 3);
+
+    string names[] = { "Product A", "Product B", "Product C" };
+    int qty[] = { 50, 30, 20 };
+
+    InventoryManager inventory(matrix, List1D<string>(names,3), List1D<int>(qty,3));
+
+    cout << "[INFO] Initial inventory:\n" << inventory.toString() << endl;
+
+    cout << "[STEP] Adding duplicate of Product A (qty=20)...\n";
+    inventory.addProduct(rows[0], "Product A", 20);
+
+    cout << "[INFO] Inventory AFTER adding duplicate:\n" << inventory.toString() << endl;
+
+    cout << "[STEP] Removing duplicates...\n";
+    inventory.removeDuplicates();
+
+    cout << "[RESULT] Inventory AFTER removing duplicates:\n" << inventory.toString() << endl;
+}
+
+void testInventory_QueryComplex() {
+    cout << "\n==================== INVENTORY TEST: Query Complex ====================\n";
+
+    cout << "[STEP] Preparing inventory with complex attributes...\n";
+
+    InventoryAttribute arrA[] = { {"weight",10}, {"height",156} };
+    InventoryAttribute arrB[] = { {"weight",20}, {"depth",24}, {"height",100} };
+    InventoryAttribute arrC[] = { {"color",2}, {"height",75} };
+
+    List1D<InventoryAttribute> rows[] = {
+        List1D<InventoryAttribute>(arrA,2),
+        List1D<InventoryAttribute>(arrB,3),
+        List1D<InventoryAttribute>(arrC,2)
+    };
+
+    List2D<InventoryAttribute> matrix(rows, 3);
+
+    string names[] = { "Product A", "Product B", "Product C" };
+    int qty[] = { 50, 30, 20 };
+
+    InventoryManager inventory(matrix, List1D<string>(names,3), List1D<int>(qty,3));
+
+    cout << "[INFO] Loaded inventory:\n" << inventory.toString() << endl;
+
+    cout << "[STEP] Running complex query:\n";
+    cout << " - Attribute: height\n";
+    cout << " - Range: [50, 150]\n";
+    cout << " - Min qty: 40\n";
+    cout << " - Include lower bound: false\n";
+
+    List1D<string> result = inventory.query("height", 50, 150, 40, false);
+
+    cout << "[RESULT] Query result:\n";
+    cout << result << endl;
 }
