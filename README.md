@@ -36,10 +36,22 @@ It includes both low-level data structures and high-level application classes fo
 
 ---
 
+## 🧩 Class Structure
+
+```text
+/include/
+├── list/
+│   ├── IList.h         # Abstract list interface
+│   ├── XArrayList.h    # Array-based list implementation
+│   ├── DLinkedList.h   # Doubly linked list implementation
+│
+└── inventory.h         # List1D, List2D, InventoryManager, InventoryAttribute
+```
 ## ▶ How to Build & Run
 
 ## **1. Build**
 Compile the whole project (adjust paths if needed):
 
 ```bash
+
 g++ -std=c++17 -O2 -I./ -o app main.cpp
