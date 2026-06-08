@@ -1,18 +1,18 @@
-# 🧾 Inventory Management System (C++17)
+# Inventory Management System (C++17)
 
 A data-structure–based **Inventory Management System** implemented in **C++17**, applying concepts of **Object-Oriented Programming (OOP)**, **templates**, and **iterators**.  
 This project was developed as part of the *Data Structures and Algorithms* course (CO2003), Ho Chi Minh City University of Technology (HCMUT).
 
 ---
 
-## 📚 Overview
+## Overview
 
 The project demonstrates the use of **custom list data structures** and **modular software design** to manage warehouse (inventory) data efficiently.  
 It includes both low-level data structures and high-level application classes for real-world data manipulation.
 
 ---
 
-## 🏗️ Features
+## Features
 
 ### 1. Custom Data Structures
 - **`IList<T>`** – Abstract interface defining common list operations.  
@@ -36,7 +36,7 @@ It includes both low-level data structures and high-level application classes fo
 
 ---
 
-## 🧩 Class Structure
+## Class Structure
 
 ```text
 /include/
@@ -47,7 +47,7 @@ It includes both low-level data structures and high-level application classes fo
 │
 └── inventory.h         # List1D, List2D, InventoryManager, InventoryAttribute
 ```
-## ▶ How to Build & Run
+## How to Build & Run
 
 ## **1. Build**
 Compile the whole project (adjust paths if needed):
